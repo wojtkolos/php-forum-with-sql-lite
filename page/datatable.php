@@ -131,6 +131,15 @@ class Datatable
       return $this->exceptionExecCheck($query);
    }
 
+   protected function query_update($data,$value,$key=NULL){
+      if(!$key) $key=$this->key;
+      $query="update ".$this->table." set ";
+      foreach( $data as $k=>$v ) $query .= " $k = '$v', ";
+      $query = substr($query,0, strlen($query)-2);
+      $query.=" where $key='$value' ";
+      return $query;
+   } 
+
    public function delete($id,$key=false) 
    {
       if(!$key) 
